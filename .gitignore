@@ -1,0 +1,27 @@
+# Build outputs
+bin/
+obj/
+artifacts/
+release/
+output/
+
+# IDE
+.vs/
+.idea/
+*.user
+*.suo
+
+# Local AI workspace data
+.workbuddy/
+
+# 运行时数据与日志（登录库/设备台账/自检截图/崩溃日志）
+*.log
+*.db
+*.db-shm
+*.db-wal
+devices.json
+shots/
+
+# Smoke 自检产物
+smoke.log
+crash.log

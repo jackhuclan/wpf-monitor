@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>IndustrialMonitor</RootNamespace>
+    <AssemblyName>IndustrialMonitor</AssemblyName>
+    <InvariantGlobalization>false</InvariantGlobalization>
+    <!-- NU1701：LiveCharts2 传递依赖 OpenTK / SkiaSharp.Views.WPF 仅有 .NETFramework 兼容标记，官方支持 WPF，误报 -->
+    <NoWarn>$(NoWarn);NU1701</NoWarn>
+    <!-- 语言基线、版本与作者等共享元数据统一在根目录 Directory.Build.props 维护 -->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- 包版本统一在根目录 Directory.Packages.props（CPM）维护 -->
+    <PackageReference Include="CommunityToolkit.Mvvm" />
+    <PackageReference Include="HandyControl" />
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" />
+    <PackageReference Include="Microsoft.Data.Sqlite" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

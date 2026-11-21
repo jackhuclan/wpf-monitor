@@ -1,0 +1,117 @@
+<UserControl x:Class="IndustrialMonitor.Views.DashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="24,20">
+        <StackPanel>
+            <!-- 统计卡片行 -->
+            <UniformGrid Columns="4">
+                <!-- 设备总数 -->
+                <Border Style="{StaticResource CardBorder}" Margin="0,0,16,0">
+                    <StackPanel>
+                        <Grid>
+                            <Border Width="40" Height="40" CornerRadius="10" Background="#EAF3FF"
+                                    HorizontalAlignment="Left">
+                                <TextBlock Text="&#xE772;" FontFamily="Segoe MDL2 Assets" FontSize="18"
+                                           Foreground="{StaticResource BrandBrush}"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </Grid>
+                        <TextBlock Style="{StaticResource CardTitleText}" Text="设备总数" Margin="0,14,0,4"/>
+                        <TextBlock Style="{StaticResource CardNumberText}" Text="{Binding TotalDevices}"/>
+                    </StackPanel>
+                </Border>
+                <!-- 在线设备 -->
+                <Border Style="{StaticResource CardBorder}" Margin="0,0,16,0">
+                    <StackPanel>
+                        <Border Width="40" Height="40" CornerRadius="10" Background="#E7F7EE" HorizontalAlignment="Left">
+                            <TextBlock Text="&#xE7F4;" FontFamily="Segoe MDL2 Assets" FontSize="18"
+                                       Foreground="{StaticResource OnlineBrush}"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock Style="{StaticResource CardTitleText}" Text="运行设备数" Margin="0,14,0,4"/>
+                        <TextBlock Style="{StaticResource CardNumberText}" Text="{Binding OnlineDevices}"
+                                   Foreground="{StaticResource OnlineBrush}"/>
+                    </StackPanel>
+                </Border>
+                <!-- 今日报警 -->
+                <Border Style="{StaticResource CardBorder}" Margin="0,0,16,0">
+                    <StackPanel>
+                        <Border Width="40" Height="40" CornerRadius="10" Background="#FDECEC" HorizontalAlignment="Left">
+                            <TextBlock Text="&#xE7BA;" FontFamily="Segoe MDL2 Assets" FontSize="18"
+                                       Foreground="{StaticResource AlarmRedBrush}"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock Style="{StaticResource CardTitleText}" Text="今日报警" Margin="0,14,0,4"/>
+                        <TextBlock Style="{StaticResource CardNumberText}" Text="{Binding TodayAlarms}"
+                                   Foreground="{StaticResource AlarmRedBrush}"/>
+                    </StackPanel>
+                </Border>
+                <!-- 平均温度 -->
+                <Border Style="{StaticResource CardBorder}">
+                    <StackPanel>
+                        <Border Width="40" Height="40" CornerRadius="10" Background="#FFF6E5" HorizontalAlignment="Left">
+                            <TextBlock Text="&#xE706;" FontFamily="Segoe MDL2 Assets" FontSize="18"
+                                       Foreground="{StaticResource WarningBrush}"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock Style="{StaticResource CardTitleText}" Text="平均温度（℃）" Margin="0,14,0,4"/>
+                        <TextBlock Style="{StaticResource CardNumberText}" Text="{Binding AvgTemperature}"/>
+                    </StackPanel>
+                </Border>
+            </UniformGrid>
+
+            <!-- 在线率 + 系统信息 -->
+            <Grid Margin="0,16,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Style="{StaticResource CardBorder}" Margin="0,0,16,0">
+                    <StackPanel>
+                        <Grid Margin="0,0,0,14">
+                            <TextBlock Style="{StaticResource SectionTitleText}" Text="设备在线率"/>
+                            <TextBlock Text="{Binding OnlineRate, StringFormat={}{0}%}" FontSize="18"
+                                       FontWeight="Bold" Foreground="{StaticResource BrandBrush}"
+                                       HorizontalAlignment="Right"/>
+                        </Grid>
+                        <ProgressBar Height="10" Minimum="0" Maximum="100" Value="{Binding OnlineRate}"
+                                     Foreground="{StaticResource BrandBrush}" BorderThickness="0"/>
+                        <TextBlock FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,10,0,0"
+                                   Text="{Binding OnlineDevices, StringFormat=当前在线 {0} 台设备，数据每 2 秒自动刷新}"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="1" Style="{StaticResource CardBorder}">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource SectionTitleText}" Text="系统信息"/>
+                        <Grid Margin="0,14,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="110"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="运行时长" Style="{StaticResource CardTitleText}"/>
+                            <TextBlock Grid.Column="1" Text="{Binding RunDurationText}" FontSize="13"
+                                       Foreground="{StaticResource TitleBrush}"/>
+                            <TextBlock Grid.Row="1" Text="图表刷新间隔" Style="{StaticResource CardTitleText}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding RefreshIntervalText}" FontSize="13"
+                                       Foreground="{StaticResource TitleBrush}"/>
+                            <TextBlock Grid.Row="2" Text="数据存储" Style="{StaticResource CardTitleText}"/>
+                            <TextBlock Grid.Row="2" Grid.Column="1" Text="SQLite + JSON 持久化" FontSize="13"
+                                       Foreground="{StaticResource TitleBrush}"/>
+                            <TextBlock Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding DbInfoText}" FontSize="12"
+                                       Foreground="{StaticResource TextSecondaryBrush}" TextWrapping="Wrap"
+                                       Margin="0,8,0,0"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

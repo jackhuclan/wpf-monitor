@@ -1,0 +1,26 @@
+<Project>
+
+  <!-- 集中包管理（CPM）：所有 NuGet 包版本统一在此维护，
+       各 csproj 中的 PackageReference 只写 Include 不写 Version。 -->
+
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>false</CentralPackageTransitivePinningEnabled>
+    <CentralPackageVersionOverrideEnabled>false</CentralPackageVersionOverrideEnabled>
+  </PropertyGroup>
+
+  <ItemGroup Label="MVVM 与依赖注入">
+    <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup Label="UI 组件库">
+    <PackageVersion Include="HandyControl" Version="3.5.1" />
+    <PackageVersion Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.5" />
+  </ItemGroup>
+
+  <ItemGroup Label="存储">
+    <PackageVersion Include="Microsoft.Data.Sqlite" Version="8.0.11" />
+  </ItemGroup>
+
+</Project>

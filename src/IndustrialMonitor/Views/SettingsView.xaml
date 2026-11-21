@@ -1,0 +1,131 @@
+<UserControl x:Class="IndustrialMonitor.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="24,16">
+        <StackPanel MaxWidth="860" HorizontalAlignment="Left">
+
+            <!-- 运行参数 -->
+            <Border Style="{StaticResource CardBorder}">
+                <StackPanel>
+                    <Grid Margin="0,0,0,16">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE713;" FontFamily="Segoe MDL2 Assets" FontSize="16"
+                                       Foreground="{StaticResource BrandBrush}" VerticalAlignment="Center"/>
+                            <TextBlock Text="监控参数（保存后立即生效，无需重启）" Style="{StaticResource SectionTitleText}"
+                                       Margin="10,0,0,0"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid.Resources>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="Margin" Value="0,0,0,14"/>
+                            </Style>
+                        </Grid.Resources>
+
+                        <TextBlock Text="温度阈值（℃）" Style="{StaticResource FormLabelText}" VerticalAlignment="Center"/>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal">
+                            <TextBox Style="{StaticResource FormInput}" Width="180" IsEnabled="{Binding CanOperate}"
+                                     Text="{Binding TemperatureThresholdText, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Text="超过该温度连续越限将触发报警" FontSize="12"
+                                       Foreground="{StaticResource TextSecondaryBrush}" VerticalAlignment="Center"
+                                       Margin="12,0,0,0"/>
+                        </StackPanel>
+
+                        <TextBlock Grid.Row="1" Text="压力阈值（MPa）" Style="{StaticResource FormLabelText}" VerticalAlignment="Center"/>
+                        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                            <TextBox Style="{StaticResource FormInput}" Width="180" IsEnabled="{Binding CanOperate}"
+                                     Text="{Binding PressureThresholdText, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Text="超过该压力连续越限将触发报警" FontSize="12"
+                                       Foreground="{StaticResource TextSecondaryBrush}" VerticalAlignment="Center"
+                                       Margin="12,0,0,0"/>
+                        </StackPanel>
+
+                        <TextBlock Grid.Row="2" Text="图表刷新间隔（ms）" Style="{StaticResource FormLabelText}" VerticalAlignment="Center"/>
+                        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+                            <TextBox Style="{StaticResource FormInput}" Width="180" IsEnabled="{Binding CanOperate}"
+                                     Text="{Binding RefreshIntervalText, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Text="范围 100 ~ 10000，默认 400" FontSize="12"
+                                       Foreground="{StaticResource TextSecondaryBrush}" VerticalAlignment="Center"
+                                       Margin="12,0,0,0"/>
+                        </StackPanel>
+
+                        <TextBlock Grid.Row="3" Text="滑动窗口（点数）" Style="{StaticResource FormLabelText}" VerticalAlignment="Center"/>
+                        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+                            <TextBox Style="{StaticResource FormInput}" Width="180" IsEnabled="{Binding CanOperate}"
+                                     Text="{Binding WindowSizeText, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Text="曲线展示的历史点数，默认 60" FontSize="12"
+                                       Foreground="{StaticResource TextSecondaryBrush}" VerticalAlignment="Center"
+                                       Margin="12,0,0,0"/>
+                        </StackPanel>
+
+                        <TextBlock Grid.Row="4" Text="报警防抖（秒）" Style="{StaticResource FormLabelText}" VerticalAlignment="Center"/>
+                        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+                            <TextBox Style="{StaticResource FormInput}" Width="180" IsEnabled="{Binding CanOperate}"
+                                     Text="{Binding DebounceSecondsText, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Text="连续越限超过该秒数才记录报警，避免边界抖动刷屏" FontSize="12"
+                                       Foreground="{StaticResource TextSecondaryBrush}" VerticalAlignment="Center"
+                                       Margin="12,0,0,0"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+                        <Button Style="{StaticResource PrimaryButtonStyle}" Content="保存设置"
+                                Command="{Binding SaveConfigCommand}"
+                                Visibility="{Binding CanOperate, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                        <TextBlock Text="{Binding SaveMessage}" FontSize="13"
+                                   Foreground="{StaticResource OnlineBrush}" VerticalAlignment="Center"
+                                   Margin="16,0,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- 修改密码 -->
+            <Border Style="{StaticResource CardBorder}" Margin="0,16,0,0">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                        <TextBlock Text="&#xE72E;" FontFamily="Segoe MDL2 Assets" FontSize="16"
+                                   Foreground="{StaticResource BrandBrush}" VerticalAlignment="Center"/>
+                        <TextBlock Text="修改密码" Style="{StaticResource SectionTitleText}" Margin="10,0,0,0"/>
+                    </StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="200"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Margin="0,0,16,0">
+                            <TextBlock Text="旧密码" Style="{StaticResource FormLabelText}"/>
+                            <PasswordBox x:Name="OldPasswordBox" Style="{StaticResource FormPassword}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Margin="0,0,16,0">
+                            <TextBlock Text="新密码（≥6位）" Style="{StaticResource FormLabelText}"/>
+                            <PasswordBox x:Name="NewPasswordBox" Style="{StaticResource FormPassword}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="确认新密码" Style="{StaticResource FormLabelText}"/>
+                            <PasswordBox x:Name="ConfirmPasswordBox" Style="{StaticResource FormPassword}"/>
+                        </StackPanel>
+                    </Grid>
+                    <StackPanel Orientation="Horizontal" Margin="0,14,0,0">
+                        <Button Style="{StaticResource PrimaryButtonStyle}" Content="修改密码" Click="OnChangePasswordClick"
+                                Visibility="{Binding CanOperate, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                        <TextBlock x:Name="PasswordMessage" FontSize="13" VerticalAlignment="Center" Margin="16,0,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

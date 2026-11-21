@@ -1,0 +1,44 @@
+<Project>
+
+  <!--
+    全解决方案共享的工程元数据（Directory.Build.props 会被目录树下所有 .csproj 自动导入）。
+    发布 / 升级版本时只改这一处：Version 会同时作用到程序集版本与 NuGet 包版本。
+    工程规范沿用 aoi_twin_demo 仓库（CPM / .editorconfig / 中文 Conventional Commits）。
+  -->
+  <PropertyGroup>
+
+    <!-- 版本：语义化版本，同时作为 AssemblyVersion / FileVersion / NuGet 包版本 -->
+    <Version>1.0.0</Version>
+
+    <!-- 作者与公司 -->
+    <Authors>jackhuclan</Authors>
+    <Company>jackhuclan</Company>
+
+    <!-- 产品与描述 -->
+    <Product>IndustrialMonitor</Product>
+    <Description>
+      工业设备数据实时监控看板：.NET 8 WPF + LiveCharts2 双通道曲线，
+      登录认证与三级权限（RBAC）、报警防抖引擎、SQLite 持久化、配置热重载。
+    </Description>
+
+    <!-- 项目地址 -->
+    <PackageProjectUrl>https://github.com/jackhuclan/wpf-monitor</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/jackhuclan/wpf-monitor.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+
+    <!-- 版权与许可证 -->
+    <Copyright>Copyright © 2026 jackhuclan</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <Deterministic>true</Deterministic>
+    <IncludeSourceRevisionInInformationalVersion>true</IncludeSourceRevisionInInformationalVersion>
+
+    <!-- 语言基线 -->
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+
+  </PropertyGroup>
+
+</Project>
